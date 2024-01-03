@@ -3,10 +3,11 @@ include "../helpers/avrBoardConf.nim"
 proc build*(file: string) =
   exec "nim c -d:danger --os:any " & file
 
-proc upload*(file: string) =
-  exec "avr-objcopy -O ihex -R .eeprom " & file & " " & file & ".hex"
-  exec "teensy-loader-cli --mcu=TEENSY2 -v -w " & file & ".hex"
+proc upload*(device: string, file: string) =
+  exec "avr-objcopy -O ihex " & file & " " & file & ".hex"
+  exec "avrdude -c avr109 -p m32u4 -D -U flash:w:" & file & ".hex:i -v -v -v -v -P " & device
   exec "rm " & file & ".hex"
+  exec "rm " & file
 
 proc size*(file: string) =
   exec "avr-size -C --mcu=atmega32u4 " & file

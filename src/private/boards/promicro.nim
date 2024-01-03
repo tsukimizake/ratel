@@ -35,7 +35,8 @@ const
   F7* = pin('F', 7)
   C6* = pin('C', 6)
   E6* = pin('E', 6)
-  LED* = D5
+  TXLED* = D5
+  RXLED* = B0
 
 {.passC: "-mmcu=atmega32u4".}
 {.passC:  "-I.".}
